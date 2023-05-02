@@ -18,3 +18,24 @@ you need to present the share sheet from the topmost view controller, not the ro
     topVC.present(activityController, animated: true)
 }
 ```
+
+```swift
+extension View {
+    
+    var firstWindow: UIWindow? {
+        let scenes: Set<UIScene> = UIApplication.shared.connectedScenes
+        let windowScene: UIWindowScene? = scenes.first as? UIWindowScene
+        return windowScene?.windows.first
+    }
+    
+    var topMostViewController: UIViewController? {
+        var topMostVC = self.firstWindow?.rootViewController
+        while let presentedVC = topMostVC?.presentedViewController {
+            topMostVC = presentedVC
+        }
+        return topMostVC
+    }
+    
+}
+
+```
